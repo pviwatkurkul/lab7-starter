@@ -24,15 +24,8 @@ function getRecipesFromStorage() {
 	// A9. TODO - Complete the functionality as described in this function
 	//           header. It is possible in only a single line, but should
 	//           be no more than a few lines.
-	const storedData = localStorage.getItem('recipes');
-    try {
-        return storedData ? JSON.parse(storedData) : [];
-    } catch (error) {
-        console.error('Error parsing stored recipes:', error);
-        return [];
-    }
+    return JSON.parse(localStorage.getItem('recipes')) || [];
 }
-
 /**
  * Takes in an array of recipes and for each recipe creates a
  * new <recipe-card> element, adds the recipe data to that card
@@ -101,12 +94,14 @@ function initFormHandler() {
 		localStorage.setItem('recipes',JSON.stringify(stored));
 	});
 	// B10. TODO - Get a reference to the "Clear Local Storage" button
-	let clear = document.getElementsByClassName("danger")[0];
+	let clear = document.querySelector(".danger");
 	// B11. TODO - Add a click event listener to clear local storage button
-	// clear.addEventListener('click',()=>{
-
-	// })
-	// Steps B12 & B13 will occur inside the event listener from step B11
-	// B12. TODO - Clear the local storage
-	// B13. TODO - Delete the contents of <main>
+	clear.addEventListener('click',()=>{
+     	// Steps B12 & B13 will occur inside the event listener from step B11
+        // B12. TODO - Clear the local storage
+        localStorage.removeItem('recipes');
+        // B13. TODO - Delete the contents of <main>
+        let main = document.querySelector("main");
+        main.innerHTML = '';
+	});
 }
