@@ -24,7 +24,13 @@ function getRecipesFromStorage() {
 	// A9. TODO - Complete the functionality as described in this function
 	//           header. It is possible in only a single line, but should
 	//           be no more than a few lines.
-    return JSON.parse(localStorage.getItem('recipes')) || [];
+	const storedData = localStorage.getItem('recipes');
+    try {
+        return storedData ? JSON.parse(storedData) : [];
+    } catch (error) {
+        console.error('Error parsing stored recipes:', error);
+        return [];
+    }
 }
 /**
  * Takes in an array of recipes and for each recipe creates a
@@ -91,7 +97,7 @@ function initFormHandler() {
 		//            then save the recipes array back to localStorage
 		const stored = JSON.parse(localStorage.getItem('recipes'));
 		stored.push(recipeObject);
-		localStorage.setItem('recipes',JSON.stringify(stored));
+		saveRecipesToStorage(stored);
 	});
 	// B10. TODO - Get a reference to the "Clear Local Storage" button
 	let clear = document.querySelector(".danger");
